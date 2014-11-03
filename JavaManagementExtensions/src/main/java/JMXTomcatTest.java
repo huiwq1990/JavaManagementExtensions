@@ -1,4 +1,4 @@
-package foo;
+
 
 import java.lang.management.MemoryUsage;
 import java.text.SimpleDateFormat;
@@ -19,7 +19,7 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
-public class JMXTest {
+public class JMXTomcatTest {
 
 	/**
 	 * @param args
@@ -37,12 +37,12 @@ public class JMXTest {
            MBeanServerConnection  mbsc = connector.getMBeanServerConnection();
            
            //端口最好是动态取得
-           ObjectName threadObjName = new ObjectName("Catalina:type=ThreadPool,name=http-8080");
-           MBeanInfo mbInfo = mbsc.getMBeanInfo(threadObjName);
-           
-           String attrName = "currentThreadCount";//tomcat的线程数对应的属性值
-           MBeanAttributeInfo[] mbAttributes = mbInfo.getAttributes();
-           System.out.println("currentThreadCount:"+mbsc.getAttribute(threadObjName, attrName));
+//           ObjectName threadObjName = new ObjectName("Catalina:type=ThreadPool,name=http-8080");
+//           MBeanInfo mbInfo = mbsc.getMBeanInfo(threadObjName);
+//           
+//           String attrName = "currentThreadCount";//tomcat的线程数对应的属性值
+//           MBeanAttributeInfo[] mbAttributes = mbInfo.getAttributes();
+//           System.out.println("currentThreadCount:"+mbsc.getAttribute(threadObjName, attrName));
            
            //heap
            for(int j=0;j <mbsc.getDomains().length;j++){ 
@@ -74,7 +74,7 @@ public class JMXTest {
            System.out.println("启动时间:"+df.format(starttime));
            
            Long timespan=(Long)mbsc.getAttribute(runtimeObjName, "Uptime");
-           System.out.println("连续工作时间:"+JMXTest.formatTimeSpan(timespan));
+           System.out.println("连续工作时间:"+JMXTomcatTest.formatTimeSpan(timespan));
            //------------------------ JVM -------------------------
            //堆使用率
            ObjectName heapObjName = new ObjectName("java.lang:type=Memory");
